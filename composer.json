@@ -1,0 +1,18 @@
+{
+    "name": "whtspoint/elephy",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Whtspoint\\Elephy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WhtsPoint",
+            "email": "whtspoint@gmail.com"
+        }
+    ],
+    "require": {
+        "jwilsson/spotify-web-api-php": "^6.1"
+    }
+}
