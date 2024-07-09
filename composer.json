@@ -3,7 +3,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Whtspoint\\Elephy\\": "src/"
+            "WhtsPoint\\Elephy\\": "src/"
         }
     },
     "authors": [
@@ -13,6 +13,7 @@
         }
     ],
     "require": {
+        "ext-curl": "*",
         "jwilsson/spotify-web-api-php": "^6.1"
     }
 }

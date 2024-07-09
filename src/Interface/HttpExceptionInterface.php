@@ -1,6 +1,6 @@
 <?php
 
-namespace Whtspoint\Elephy\Interface;
+namespace WhtsPoint\Elephy\Interface;
 
 interface HttpExceptionInterface
 {

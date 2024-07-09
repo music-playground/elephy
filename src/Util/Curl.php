@@ -1,8 +1,8 @@
 <?php
 
-namespace Whtspoint\Elephy\Util;
+namespace WhtsPoint\Elephy\Util;
 
-use Whtspoint\Elephy\Exception\HttpException;
+use WhtsPoint\Elephy\Exception\HttpException;
 
 class Curl
 {
@@ -13,10 +13,13 @@ class Curl
     {
         $ch = curl_init();
 
-        curl_setopt_array($ch, [
+        curl_setopt_array(
+            $ch,
+            [
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_FOLLOWLOCATION => 0
-            ] + $options);
+            ] + $options
+        );
 
         $output = curl_exec($ch);
         $code = (string)curl_getinfo($ch, CURLINFO_HTTP_CODE);

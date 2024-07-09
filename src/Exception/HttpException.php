@@ -1,9 +1,9 @@
 <?php
 
-namespace Whtspoint\Elephy\Exception;
+namespace WhtsPoint\Elephy\Exception;
 
 use Exception;
-use Whtspoint\Elephy\Interface\HttpExceptionInterface;
+use WhtsPoint\Elephy\Interface\HttpExceptionInterface;
 
 class HttpException extends Exception implements HttpExceptionInterface
 {

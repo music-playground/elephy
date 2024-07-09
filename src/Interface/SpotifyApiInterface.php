@@ -1,26 +1,26 @@
 <?php
 
-namespace Whtspoint\Elephy\Interface;
+namespace WhtsPoint\Elephy\Interface;
 
 interface SpotifyApiInterface
 {
     /**
      * @throws HttpExceptionInterface
      */
-    public function getAlbum(string $id, string $market);
+    public function getAlbum(string $id, ?string $market = null);
     /**
      * @throws HttpExceptionInterface
      * @param string[] $ids
      */
-    public function getSeveralAlbums(array $ids, string $market);
+    public function getSeveralAlbums(array $ids, ?string $market = null);
     /**
      * @throws HttpExceptionInterface
      */
-    public function getAlbumTracks(string $id, string $market, int $limit, int $offset);
+    public function getAlbumTracks(string $id, int $limit, int $offset, ?string $market = null);
     /**
      * @throws HttpExceptionInterface
      */
-    public function getSavedAlbums(int $limit, int $offset, string $market);
+    public function getSavedAlbums(int $limit, int $offset, ?string $market = null);
     /**
      * @throws HttpExceptionInterface
      */

@@ -1,8 +1,12 @@
 <?php
 
-namespace Whtspoint\Elephy\Interface;
+namespace WhtsPoint\Elephy\Interface;
 
 interface SessionInterface
 {
-    public function getAccessToken();
+    /**
+    * @return array{ access_token: string, token_type: string, expire_in: int }
+    **/
+    public function requestAccessToken(): array;
+    public function getAccessToken(): string;
 }
