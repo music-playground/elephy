@@ -10,6 +10,8 @@ use WhtsPoint\Elephy\Util\Request;
 class SpotifyApi implements SpotifyApiInterface
 {
     private readonly Request $getRequest;
+    private readonly Request $putRequest;
+    private readonly Request $deleteRequest;
 
     public function __construct(
         private readonly SessionInterface $session,
@@ -18,6 +20,14 @@ class SpotifyApi implements SpotifyApiInterface
     ) {
         $request = (new Request())->withApiUrl($this->apiUrl);
         $this->getRequest = $request;
+        $this->putRequest = $request->addOptions([
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_CUSTOMREQUEST => 'PUT'
+        ]);
+        $this->deleteRequest = $request->addOptions([
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_CUSTOMREQUEST => 'DELETE'
+        ]);
     }
 
     public function getAlbum(string $id, ?string $market = null)
@@ -25,7 +35,7 @@ class SpotifyApi implements SpotifyApiInterface
         return json_decode(
             $this->getRequest
                 ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/albums/$id?" . $this->queryString->createFromArray(compact($market)))
+                ->withEndpoint('/albums/$id?' . $this->queryString->createFromArray(compact($market)))
                 ->send(),
             true
         );
@@ -36,7 +46,7 @@ class SpotifyApi implements SpotifyApiInterface
         return json_decode(
             $this->getRequest
                 ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/albums?" . $this->queryString->createFromArray([
+                ->withEndpoint('/albums?' . $this->queryString->createFromArray([
                     'ids' => join(',', $ids),
                     'market' => $market
                 ]))
@@ -50,7 +60,7 @@ class SpotifyApi implements SpotifyApiInterface
         return json_decode(
             $this->getRequest
                 ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/albums/$id/tracks?" . $this->queryString
+                ->withEndpoint('/albums/$id/tracks?' . $this->queryString
                         ->createFromArray(compact($limit, $offset, $market))
                 )->send(),
             true
@@ -59,21 +69,55 @@ class SpotifyApi implements SpotifyApiInterface
 
     public function getSavedAlbums(int $limit, int $offset, ?string $market = null)
     {
-        // TODO: Implement getSavedAlbums() method.
+        return json_decode(
+            $this->getRequest
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/me/albums?' . $this->queryString
+                        ->createFromArray(compact($limit, $offset, $market))
+                )->send(),
+            true
+        );
     }
 
     public function saveAlbums(array $ids)
     {
-        // TODO: Implement saveAlbums() method.
+        $this->putRequest
+            ->withAccessToken($this->session->getAccessToken())
+            ->withEndpoint('/me/albums')
+            ->addOptions([CURLOPT_POSTFIELDS => json_encode(['ids' => join(',', $ids)])])
+            ->send();
     }
 
     public function removeSavedAlbums(array $ids)
     {
-        // TODO: Implement removeSavedAlbums() method.
+        $this->deleteRequest
+            ->withAccessToken($this->session->getAccessToken())
+            ->withEndpoint('/me/albums')
+            ->addOptions([CURLOPT_POSTFIELDS => json_encode(['ids' => join(',', $ids)])])
+            ->send();
+    }
+
+    public function checkSavedAlbums(array $ids): array
+    {
+        return json_decode(
+            $this->getRequest
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/me/albums/contains')
+                ->addOptions([CURLOPT_POSTFIELDS => json_encode(['ids' => join(',', $ids)])])
+            ->send(),
+            true
+        );
     }
 
     public function getNewReleases(int $limit, int $offset)
     {
-        // TODO: Implement getNewReleases() method.
+        return json_decode(
+            $this->getRequest
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/browse/new-releases?' . $this->queryString
+                        ->createFromArray(compact($limit, $offset))
+                )->send(),
+            true
+        );
     }
 }

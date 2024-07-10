@@ -23,12 +23,20 @@ interface SpotifyApiInterface
     public function getSavedAlbums(int $limit, int $offset, ?string $market = null);
     /**
      * @throws HttpExceptionInterface
+     * @param string[] $ids
      */
     public function saveAlbums(array $ids);
     /**
      * @throws HttpExceptionInterface
+     * @param string[] $ids
      */
     public function removeSavedAlbums(array $ids);
+    /**
+     * @throws HttpExceptionInterface
+     * @param string[] $ids
+     * @return bool[]
+     */
+    public function checkSavedAlbums(array $ids): array;
     /**
      * @throws HttpExceptionInterface
      */
