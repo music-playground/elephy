@@ -8,7 +8,7 @@ class QueryString
     {
         $filtered = array_filter($params, fn ($value) => $value !== null);
 
-        return join(',', array_map(
+        return join('&', array_map(
             fn (string $param, string $value) => "$param=$value",
             array_keys($filtered),
             array_values($filtered)
