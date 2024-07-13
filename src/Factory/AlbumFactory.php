@@ -14,21 +14,21 @@ class AlbumFactory
         private readonly CopyrightFactory $copyrightFactory = new CopyrightFactory()
     ) {}
 
-    public function createFromArray(array $params): Album
+    public function fromArray(array $params, ?string $market = null): Album
     {
         $images = $this->imageFactory->manyFromArray($params['images']);
-        $copyrights = $this->copyrightFactory->manyFromArray($params['copyrights']);
+        $copyrights = isset($params['copyrights']) ? $this->copyrightFactory->manyFromArray($params['copyrights']) : null;
         $trackLoader = new TrackLoader(
             $this->api,
             $params['id'],
-            $params['tracks']['limit'],
-            $params['tracks']['total']
+            isset($params['tracks']) ? $params['tracks']['limit']: 100,
+            $market
         );
 
         return new Album(
             $params['album_type'],
             $params['total_tracks'],
-            $params['available_markets'],
+            @$params['available_markets'],
             $params['id'],
             $images,
             $params['name'],
@@ -38,10 +38,19 @@ class AlbumFactory
             $params['type'],
             $params['uri'],
             $copyrights,
-            $params['genres'],
+            @$params['genres'],
             $params['label'],
             $params['popularity'],
-            $trackLoader
+            $trackLoader,
+            $market
         );
+    }
+
+    /**
+     * @return Album[]
+     */
+    public function manyFromArray(array $params, ?string $market = null): array
+    {
+        return array_map(fn ($album) => $this->fromArray($album, $market), $params);
     }
 }

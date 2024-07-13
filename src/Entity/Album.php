@@ -10,7 +10,7 @@ class Album
     public function __construct(
         private readonly string $albumType,
         private readonly int $totalTracks,
-        private readonly array $availableMarkets,
+        private readonly ?array $availableMarkets,
         private readonly string $id,
         /** @var Image[] */
         private readonly array $images,
@@ -21,11 +21,12 @@ class Album
         private readonly string $type,
         private readonly string $uri,
         /** @var Copyright[] */
-        private readonly array $copyrights,
-        private readonly array $genres,
-        private readonly string $label,
-        private readonly int $popularity,
-        private readonly TracksLoaderInterface $tracksLoader
+        private readonly ?array $copyrights,
+        private readonly ?array $genres,
+        private readonly ?string $label,
+        private readonly ?int $popularity,
+        private readonly TracksLoaderInterface $tracksLoader,
+        private readonly ?string $market = null
     ) {}
 
     public function getAlbumType(): string
@@ -38,7 +39,7 @@ class Album
         return $this->totalTracks;
     }
 
-    public function getAvailableMarkets(): array
+    public function getAvailableMarkets(): ?array
     {
         return $this->availableMarkets;
     }
@@ -73,17 +74,17 @@ class Album
         return $this->uri;
     }
 
-    public function getGenres(): array
+    public function getGenres(): ?array
     {
         return $this->genres;
     }
 
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
         return $this->label;
     }
 
-    public function getPopularity(): int
+    public function getPopularity(): ?int
     {
         return $this->popularity;
     }
@@ -98,7 +99,7 @@ class Album
         return $this->restrictionReason;
     }
 
-    public function getCopyrights(): array
+    public function getCopyrights(): ?array
     {
         return $this->copyrights;
     }
@@ -106,5 +107,10 @@ class Album
     public function getTracks(): TracksLoaderInterface
     {
         return $this->tracksLoader;
+    }
+
+    public function getMarket(): ?string
+    {
+        return $this->market;
     }
 }

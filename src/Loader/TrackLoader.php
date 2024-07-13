@@ -13,8 +13,8 @@ class TrackLoader implements TracksLoaderInterface
     public function __construct(
         private readonly SpotifyApiInterface $api,
         private readonly string $albumId,
-        private readonly int $limit,
-        private readonly int $total
+        private int $limit,
+        private readonly ?string $market = null
     ) {}
 
     public function all(): Generator
@@ -22,10 +22,16 @@ class TrackLoader implements TracksLoaderInterface
         yield from $this->tracks;
 
         do {
-            $tracks = $this->api->getAlbumTracks($this->albumId, $this->limit, count($this->tracks));
-            $this->tracks []= $tracks;
+            $tracksDto = $this->api->getAlbumTracks(
+                $this->albumId,
+                $this->limit,
+                count($this->tracks),
+                $this->market
+            );
+            $this->tracks += $tracksDto->tracks;
+            $this->limit = $tracksDto->limit;
 
-            yield $tracks;
-        } while ($tracks > 0 && count($this->tracks) < $this->total);
+            yield from $tracksDto->tracks;
+        } while ($tracksDto->tracks > 0 && count($this->tracks) < $tracksDto->total);
     }
 }
