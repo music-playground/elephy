@@ -5,9 +5,10 @@ namespace WhtsPoint\Elephy\Interface;
 use WhtsPoint\Elephy\Dto\AlbumPaginationDto;
 use WhtsPoint\Elephy\Dto\TracksPaginationDto;
 use WhtsPoint\Elephy\Entity\Album;
+use WhtsPoint\Elephy\Entity\Artist;
+use WhtsPoint\Elephy\Entity\Audiobook;
+use WhtsPoint\Elephy\Entity\Track;
 
-/**
- */
 interface SpotifyApiInterface
 {
     /**
@@ -48,4 +49,25 @@ interface SpotifyApiInterface
      * @throws HttpExceptionInterface
      */
     public function getNewReleases(int $limit, int $offset): AlbumPaginationDto;
+
+    /**
+     * @throws HttpExceptionInterface
+     */
+    public function getArtist(string $id): Artist;
+
+    /**
+     * @param string[] $ids
+     * @return Artist[]
+     */
+    public function getSeveralArtists(array $ids): array;
+    public function getArtistsAlbums(string $id): AlbumPaginationDto;
+    /**
+     * @return Track[]
+     */
+    public function getArtistsTopTracks(string $id): array;
+    /**
+     * @return Artist[]
+     */
+    public function getArtistsRelatedArtist(string $id): array;
+    public function getAudiobook(string $id): Audiobook;
 }

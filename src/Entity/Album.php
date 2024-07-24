@@ -2,6 +2,7 @@
 
 namespace WhtsPoint\Elephy\Entity;
 
+use WhtsPoint\Elephy\Interface\ArtistLoaderInterface;
 use WhtsPoint\Elephy\Interface\TracksLoaderInterface;
 use WhtsPoint\Elephy\ValueObject\Copyright;
 
@@ -26,6 +27,7 @@ class Album
         private readonly ?string $label,
         private readonly ?int $popularity,
         private readonly TracksLoaderInterface $tracksLoader,
+        private readonly ArtistLoaderInterface $artistLoader,
         private readonly ?string $market = null
     ) {}
 
@@ -112,5 +114,10 @@ class Album
     public function getMarket(): ?string
     {
         return $this->market;
+    }
+
+    public function getArtist(): ArtistLoaderInterface
+    {
+        return $this->artistLoader;
     }
 }
