@@ -3,14 +3,18 @@
 namespace WhtsPoint\Elephy\Api;
 
 use WhtsPoint\Elephy\Dto\AlbumPaginationDto;
+use WhtsPoint\Elephy\Dto\ChangePlaylistDetailsDto;
 use WhtsPoint\Elephy\Dto\TracksPaginationDto;
 use WhtsPoint\Elephy\Entity\Album;
 use WhtsPoint\Elephy\Entity\Artist;
 use WhtsPoint\Elephy\Entity\Audiobook;
+use WhtsPoint\Elephy\Entity\PlaybackState;
+use WhtsPoint\Elephy\Entity\Playlist;
 use WhtsPoint\Elephy\Exception\HttpException;
 use WhtsPoint\Elephy\Factory\AlbumFactory;
 use WhtsPoint\Elephy\Factory\ArtistFactory;
 use WhtsPoint\Elephy\Factory\AudiobookFactory;
+use WhtsPoint\Elephy\Factory\PlaylistFactory;
 use WhtsPoint\Elephy\Factory\TrackFactory;
 use WhtsPoint\Elephy\Interface\SessionInterface;
 use WhtsPoint\Elephy\Interface\SpotifyApiInterface;
@@ -23,6 +27,7 @@ class SpotifyApi implements SpotifyApiInterface
     private readonly TrackFactory $trackFactory;
     private readonly ArtistFactory $artistFactory;
     private readonly AudiobookFactory $audiobookFactory;
+    private readonly PlaylistFactory $playlistFactory;
 
     public function __construct(
         private readonly SessionInterface $session,
@@ -34,6 +39,7 @@ class SpotifyApi implements SpotifyApiInterface
         $this->artistFactory = new ArtistFactory();
         $this->apiRequests = new ApiRequests($apiUrl);
         $this->audiobookFactory = new AudiobookFactory();
+        $this->playlistFactory = new PlaylistFactory();
     }
 
     public function getAlbum(string $id, ?string $market = null): Album
@@ -247,5 +253,87 @@ class SpotifyApi implements SpotifyApiInterface
         );
 
         return $this->audiobookFactory->fromArray($response);
+    }
+
+    public function getSeveralAudiobooks(array $ids, ?string $market = null): array
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint("/audiobooks?" .
+                    $this->queryString->createFromArray(['ids' => join(',', $ids)])
+                )
+                ->send(),
+            true
+        );
+
+        return $this->audiobookFactory->manyFromArray($response);
+    }
+
+    /**
+     * @throws HttpException
+     */
+    public function getAvailableGenreSeeds(): array
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/recommendations/available-genre-seeds')
+                ->send(),
+            true
+        );
+
+        return $response['genres'];
+    }
+
+    public function getAvailableMarkets(?array $markets = null): array
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/markets')
+                ->send(),
+            true
+        );
+
+        return $response['markets'];
+    }
+
+    /**
+     * @throws HttpException
+     */
+    public function getPlaybackState(?string $market = null): PlaybackState
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint('/me/player')
+                ->send(),
+            true
+        );
+
+        return new PlaybackState();
+    }
+
+    public function getPlaylist(string $id, ?string $market = null): Playlist
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint("/playlists/$id")
+                ->send(),
+            true
+        );
+
+        return $this->playlistFactory->fromArray($response);
+    }
+
+    public function changePlaylistDetails(string $id, ?ChangePlaylistDetailsDto $body = null): void
+    {
+        $this->apiRequests->getPutRequest()
+            ->withAccessToken($this->session->getAccessToken())
+            ->withEndpoint("/playlists/$id")
+            ->addOptions([ CURLOPT_POSTFIELDS => json_encode($body?->toArray())])
+            ->send();
     }
 }

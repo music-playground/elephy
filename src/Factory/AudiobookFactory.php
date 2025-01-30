@@ -36,4 +36,12 @@ class AudiobookFactory
             $params['total_chapters']
         );
     }
+
+    /**
+     * @return Audiobook[]
+     */
+    public function manyFromArray(array $params): array
+    {
+        return array_map(fn (array $audiobook) => $this->fromArray($audiobook), $params);
+    }
 }

@@ -3,10 +3,13 @@
 namespace WhtsPoint\Elephy\Interface;
 
 use WhtsPoint\Elephy\Dto\AlbumPaginationDto;
+use WhtsPoint\Elephy\Dto\ChangePlaylistDetailsDto;
 use WhtsPoint\Elephy\Dto\TracksPaginationDto;
 use WhtsPoint\Elephy\Entity\Album;
 use WhtsPoint\Elephy\Entity\Artist;
 use WhtsPoint\Elephy\Entity\Audiobook;
+use WhtsPoint\Elephy\Entity\PlaybackState;
+use WhtsPoint\Elephy\Entity\Playlist;
 use WhtsPoint\Elephy\Entity\Track;
 
 interface SpotifyApiInterface
@@ -70,4 +73,20 @@ interface SpotifyApiInterface
      */
     public function getArtistsRelatedArtist(string $id): array;
     public function getAudiobook(string $id): Audiobook;
+    /**
+     * @return Audiobook[]
+     */
+    public function getSeveralAudiobooks(array $ids, ?string $market = null): array;
+
+    /**
+     * @return string[]
+     */
+    public function getAvailableGenreSeeds(): array;
+    /**
+     * @return string[]
+     */
+    public function getAvailableMarkets(?array $markets = null): array;
+    public function getPlaybackState(?string $market = null): PlaybackState;
+    public function getPlaylist(string $id, ?string $market = null): Playlist;
+    public function changePlaylistDetails(string $id, ?ChangePlaylistDetailsDto $body = null): void;
 }
