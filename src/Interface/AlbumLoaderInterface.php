@@ -1,9 +1,9 @@
 <?php
 
-namespace WhtsPoint\Elephy\Interface;
+namespace MusicPlayground\Elephy\Interface;
 
 use Generator;
-use WhtsPoint\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Entity\Album;
 
 interface AlbumLoaderInterface
 {

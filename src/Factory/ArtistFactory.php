@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Factory;
+namespace MusicPlayground\Elephy\Factory;
 
-use WhtsPoint\Elephy\Entity\Artist;
+use MusicPlayground\Elephy\Entity\Artist;
 
 class ArtistFactory
 {

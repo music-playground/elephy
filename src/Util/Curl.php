@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Util;
+namespace MusicPlayground\Elephy\Util;
 
-use WhtsPoint\Elephy\Exception\HttpException;
+use MusicPlayground\Elephy\Exception\HttpException;
 
 class Curl
 {

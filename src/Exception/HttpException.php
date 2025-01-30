@@ -1,9 +1,9 @@
 <?php
 
-namespace WhtsPoint\Elephy\Exception;
+namespace MusicPlayground\Elephy\Exception;
 
 use Exception;
-use WhtsPoint\Elephy\Interface\HttpExceptionInterface;
+use MusicPlayground\Elephy\Interface\HttpExceptionInterface;
 
 class HttpException extends Exception implements HttpExceptionInterface
 {

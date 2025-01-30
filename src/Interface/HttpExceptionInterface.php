@@ -1,6 +1,6 @@
 <?php
 
-namespace WhtsPoint\Elephy\Interface;
+namespace MusicPlayground\Elephy\Interface;
 
 interface HttpExceptionInterface
 {

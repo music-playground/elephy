@@ -1,6 +1,6 @@
 <?php
 
-namespace WhtsPoint\Elephy\Dto;
+namespace MusicPlayground\Elephy\Dto;
 
 class ChangePlaylistDetailsDto
 {

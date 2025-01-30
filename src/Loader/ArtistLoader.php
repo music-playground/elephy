@@ -1,10 +1,10 @@
 <?php
 
-namespace WhtsPoint\Elephy\Loader;
+namespace MusicPlayground\Elephy\Loader;
 
 use Generator;
-use WhtsPoint\Elephy\Interface\ArtistLoaderInterface;
-use WhtsPoint\Elephy\Interface\SpotifyApiInterface;
+use MusicPlayground\Elephy\Interface\ArtistLoaderInterface;
+use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
 
 class ArtistLoader implements ArtistLoaderInterface
 {

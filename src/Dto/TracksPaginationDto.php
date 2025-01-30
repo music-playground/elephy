@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Dto;
+namespace MusicPlayground\Elephy\Dto;
 
-use WhtsPoint\Elephy\Entity\Track;
+use MusicPlayground\Elephy\Entity\Track;
 
 class TracksPaginationDto
 {

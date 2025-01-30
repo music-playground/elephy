@@ -1,6 +1,6 @@
 <?php
 
-namespace WhtsPoint\Elephy\Entity;
+namespace MusicPlayground\Elephy\Entity;
 
 class PlaybackState
 {

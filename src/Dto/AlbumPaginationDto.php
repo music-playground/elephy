@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Dto;
+namespace MusicPlayground\Elephy\Dto;
 
-use WhtsPoint\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Entity\Album;
 
 class AlbumPaginationDto
 {

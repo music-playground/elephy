@@ -1,10 +1,10 @@
 <?php
 
-namespace WhtsPoint\Elephy\Entity;
+namespace MusicPlayground\Elephy\Entity;
 
-use WhtsPoint\Elephy\Interface\ArtistLoaderInterface;
-use WhtsPoint\Elephy\Interface\TracksLoaderInterface;
-use WhtsPoint\Elephy\ValueObject\Copyright;
+use MusicPlayground\Elephy\Interface\ArtistLoaderInterface;
+use MusicPlayground\Elephy\Interface\TracksLoaderInterface;
+use MusicPlayground\Elephy\ValueObject\Copyright;
 
 class Album
 {

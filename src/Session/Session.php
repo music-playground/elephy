@@ -1,10 +1,10 @@
 <?php
 
-namespace WhtsPoint\Elephy\Session;
+namespace MusicPlayground\Elephy\Session;
 
-use WhtsPoint\Elephy\Exception\HttpException;
-use WhtsPoint\Elephy\Interface\SessionInterface;
-use WhtsPoint\Elephy\Util\Request;
+use MusicPlayground\Elephy\Exception\HttpException;
+use MusicPlayground\Elephy\Interface\SessionInterface;
+use MusicPlayground\Elephy\Util\Request;
 
 class Session implements SessionInterface
 {

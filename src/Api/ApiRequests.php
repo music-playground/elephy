@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Api;
+namespace MusicPlayground\Elephy\Api;
 
-use WhtsPoint\Elephy\Util\Request;
+use MusicPlayground\Elephy\Util\Request;
 
 class ApiRequests
 {

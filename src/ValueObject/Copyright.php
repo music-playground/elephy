@@ -1,6 +1,6 @@
 <?php
 
-namespace WhtsPoint\Elephy\ValueObject;
+namespace MusicPlayground\Elephy\ValueObject;
 
 class Copyright
 {

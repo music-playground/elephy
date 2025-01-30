@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Entity;
+namespace MusicPlayground\Elephy\Entity;
 
-use WhtsPoint\Elephy\ValueObject\Copyright;
+use MusicPlayground\Elephy\ValueObject\Copyright;
 
 class Audiobook
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WhtsPoint\Elephy\Util;
+namespace MusicPlayground\Elephy\Util;
 
 class QueryString
 {

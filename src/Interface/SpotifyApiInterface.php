@@ -1,16 +1,16 @@
 <?php
 
-namespace WhtsPoint\Elephy\Interface;
+namespace MusicPlayground\Elephy\Interface;
 
-use WhtsPoint\Elephy\Dto\AlbumPaginationDto;
-use WhtsPoint\Elephy\Dto\ChangePlaylistDetailsDto;
-use WhtsPoint\Elephy\Dto\TracksPaginationDto;
-use WhtsPoint\Elephy\Entity\Album;
-use WhtsPoint\Elephy\Entity\Artist;
-use WhtsPoint\Elephy\Entity\Audiobook;
-use WhtsPoint\Elephy\Entity\PlaybackState;
-use WhtsPoint\Elephy\Entity\Playlist;
-use WhtsPoint\Elephy\Entity\Track;
+use MusicPlayground\Elephy\Dto\AlbumPaginationDto;
+use MusicPlayground\Elephy\Dto\ChangePlaylistDetailsDto;
+use MusicPlayground\Elephy\Dto\TracksPaginationDto;
+use MusicPlayground\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Entity\Artist;
+use MusicPlayground\Elephy\Entity\Audiobook;
+use MusicPlayground\Elephy\Entity\PlaybackState;
+use MusicPlayground\Elephy\Entity\Playlist;
+use MusicPlayground\Elephy\Entity\Track;
 
 interface SpotifyApiInterface
 {

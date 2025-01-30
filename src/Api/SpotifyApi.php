@@ -1,24 +1,24 @@
 <?php
 
-namespace WhtsPoint\Elephy\Api;
+namespace MusicPlayground\Elephy\Api;
 
-use WhtsPoint\Elephy\Dto\AlbumPaginationDto;
-use WhtsPoint\Elephy\Dto\ChangePlaylistDetailsDto;
-use WhtsPoint\Elephy\Dto\TracksPaginationDto;
-use WhtsPoint\Elephy\Entity\Album;
-use WhtsPoint\Elephy\Entity\Artist;
-use WhtsPoint\Elephy\Entity\Audiobook;
-use WhtsPoint\Elephy\Entity\PlaybackState;
-use WhtsPoint\Elephy\Entity\Playlist;
-use WhtsPoint\Elephy\Exception\HttpException;
-use WhtsPoint\Elephy\Factory\AlbumFactory;
-use WhtsPoint\Elephy\Factory\ArtistFactory;
-use WhtsPoint\Elephy\Factory\AudiobookFactory;
-use WhtsPoint\Elephy\Factory\PlaylistFactory;
-use WhtsPoint\Elephy\Factory\TrackFactory;
-use WhtsPoint\Elephy\Interface\SessionInterface;
-use WhtsPoint\Elephy\Interface\SpotifyApiInterface;
-use WhtsPoint\Elephy\Util\QueryString;
+use MusicPlayground\Elephy\Dto\AlbumPaginationDto;
+use MusicPlayground\Elephy\Dto\ChangePlaylistDetailsDto;
+use MusicPlayground\Elephy\Dto\TracksPaginationDto;
+use MusicPlayground\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Entity\Artist;
+use MusicPlayground\Elephy\Entity\Audiobook;
+use MusicPlayground\Elephy\Entity\PlaybackState;
+use MusicPlayground\Elephy\Entity\Playlist;
+use MusicPlayground\Elephy\Exception\HttpException;
+use MusicPlayground\Elephy\Factory\AlbumFactory;
+use MusicPlayground\Elephy\Factory\ArtistFactory;
+use MusicPlayground\Elephy\Factory\AudiobookFactory;
+use MusicPlayground\Elephy\Factory\PlaylistFactory;
+use MusicPlayground\Elephy\Factory\TrackFactory;
+use MusicPlayground\Elephy\Interface\SessionInterface;
+use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
+use MusicPlayground\Elephy\Util\QueryString;
 
 class SpotifyApi implements SpotifyApiInterface
 {

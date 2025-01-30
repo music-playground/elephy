@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Factory;
+namespace MusicPlayground\Elephy\Factory;
 
-use WhtsPoint\Elephy\ValueObject\Copyright;
+use MusicPlayground\Elephy\ValueObject\Copyright;
 
 class CopyrightFactory
 {

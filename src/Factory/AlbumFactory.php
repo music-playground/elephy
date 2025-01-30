@@ -1,11 +1,11 @@
 <?php
 
-namespace WhtsPoint\Elephy\Factory;
+namespace MusicPlayground\Elephy\Factory;
 
-use WhtsPoint\Elephy\Entity\Album;
-use WhtsPoint\Elephy\Interface\SpotifyApiInterface;
-use WhtsPoint\Elephy\Loader\ArtistLoader;
-use WhtsPoint\Elephy\Loader\TrackLoader;
+use MusicPlayground\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
+use MusicPlayground\Elephy\Loader\ArtistLoader;
+use MusicPlayground\Elephy\Loader\TrackLoader;
 
 class AlbumFactory
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace WhtsPoint\Elephy\Factory;
+namespace MusicPlayground\Elephy\Factory;
 
-use WhtsPoint\Elephy\Entity\Image;
+use MusicPlayground\Elephy\Entity\Image;
 
 class ImageFactory
 {

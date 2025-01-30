@@ -1,11 +1,11 @@
 <?php
 
-namespace WhtsPoint\Elephy\Interface;
+namespace MusicPlayground\Elephy\Interface;
 
 interface SessionInterface
 {
     /**
-    * @return array{ access_token: string, token_type: string, expire_in: int }
+    * @return array{ access_token: string, token_type: string, expireMusicPlaygroundn: int }
     **/
     public function requestAccessToken(): array;
     public function getAccessToken(): string;
