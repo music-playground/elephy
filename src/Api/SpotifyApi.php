@@ -192,25 +192,32 @@ class SpotifyApi implements SpotifyApiInterface
     /**
      * @throws HttpException
      */
-    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null): AlbumPaginationDto
+    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null, ?array $includeGroups = null): \Generator
     {
-        $response = json_decode(
-            $this->apiRequests->getGetRequest()
-                ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/artists/$id/albums?" . $this->queryString->createFromArray([
-                        'limit' => $limit, 'offset' => $offset
-                    ])
-                )
-                ->send(),
-            true
-        );
+        do {
+            $response = json_decode(
+                $this->apiRequests->getGetRequest()
+                    ->withAccessToken($this->session->getAccessToken())
+                    ->withEndpoint("/artists/$id/albums?" . $this->queryString->createFromArray([
+                            'include_groups' => $includeGroups ? join(',', $includeGroups) : null,
+                            'limit' => $limit,
+                            'offset' => $offset
+                        ])
+                    )
+                    ->send(),
+                true
+            );
+            $count = count($response['items']);
 
-        return new AlbumPaginationDto(
-            $response['limit'],
-            $response['offset'],
-            $response['total'],
-            $this->albumFactory->manyFromArray($response['items'])
-        );
+            if ($count === 0) break;
+
+            $offset += $count;
+
+            yield new AlbumPaginationDto(
+                $response['total'],
+                $this->albumFactory->manyFromArray($response['items'])
+            );
+        } while (true);
     }
 
     /**

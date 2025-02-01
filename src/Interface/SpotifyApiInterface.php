@@ -2,6 +2,7 @@
 
 namespace MusicPlayground\Elephy\Interface;
 
+use Generator;
 use MusicPlayground\Elephy\Dto\AlbumPaginationDto;
 use MusicPlayground\Elephy\Dto\ChangePlaylistDetailsDto;
 use MusicPlayground\Elephy\Dto\TracksPaginationDto;
@@ -63,7 +64,10 @@ interface SpotifyApiInterface
      * @return Artist[]
      */
     public function getSeveralArtists(array $ids): array;
-    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null): AlbumPaginationDto;
+    /**
+     * @return Generator<AlbumPaginationDto>
+     */
+    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null, ?array $includeGroups = null): Generator;
     /**
      * @return Track[]
      */
