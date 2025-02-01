@@ -3,6 +3,7 @@
 namespace MusicPlayground\Elephy\Factory;
 
 use MusicPlayground\Elephy\Entity\Album;
+use MusicPlayground\Elephy\Entity\SimpleArtist;
 use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
 use MusicPlayground\Elephy\Loader\ArtistLoader;
 use MusicPlayground\Elephy\Loader\TrackLoader;
@@ -13,6 +14,7 @@ class AlbumFactory
         private readonly SpotifyApiInterface $api,
         private readonly ImageFactory $imageFactory = new ImageFactory(),
         private readonly CopyrightFactory $copyrightFactory = new CopyrightFactory(),
+        private readonly SimpleArtistFactory $simpleArtistFactory = new SimpleArtistFactory(),
         private readonly int $defaultLimit = 50
     ) {}
 
@@ -51,6 +53,7 @@ class AlbumFactory
             @$params['popularity'],
             $trackLoader,
             $artistLoader,
+            array_map(fn (array $artist) => $this->simpleArtistFactory->fromArray($artist), $params['artists']),
             $market
         );
     }

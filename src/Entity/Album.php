@@ -28,7 +28,9 @@ class Album
         private readonly ?int $popularity,
         private readonly TracksLoaderInterface $tracksLoader,
         private readonly ArtistLoaderInterface $artistLoader,
-        private readonly ?string $market = null
+        /** @var SimpleArtist[] */
+        private readonly array $simpleArtists,
+        private readonly ?string $market = null,
     ) {}
 
     public function getAlbumType(): string
@@ -116,8 +118,14 @@ class Album
         return $this->market;
     }
 
-    public function getArtist(): ArtistLoaderInterface
+    public function getArtists(): ArtistLoaderInterface
     {
         return $this->artistLoader;
+    }
+
+    /** @return array<SimpleArtist> */
+    public function getSimpleArtist(): array
+    {
+        return $this->simpleArtists;
     }
 }
