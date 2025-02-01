@@ -192,12 +192,15 @@ class SpotifyApi implements SpotifyApiInterface
     /**
      * @throws HttpException
      */
-    public function getArtistsAlbums(string $id): AlbumPaginationDto
+    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null): AlbumPaginationDto
     {
         $response = json_decode(
             $this->apiRequests->getGetRequest()
                 ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/artists/$id/albums")
+                ->withEndpoint("/artists/$id/albums?" . $this->queryString->createFromArray([
+                        'limit' => $limit, 'offset' => $offset
+                    ])
+                )
                 ->send(),
             true
         );

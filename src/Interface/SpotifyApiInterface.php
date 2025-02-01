@@ -63,7 +63,7 @@ interface SpotifyApiInterface
      * @return Artist[]
      */
     public function getSeveralArtists(array $ids): array;
-    public function getArtistsAlbums(string $id): AlbumPaginationDto;
+    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null): AlbumPaginationDto;
     /**
      * @return Track[]
      */
