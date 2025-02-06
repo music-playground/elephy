@@ -110,8 +110,6 @@ class SpotifyApi implements SpotifyApiInterface
         );
 
         return new AlbumPaginationDto(
-            $response['limit'],
-            $response['offset'],
             $response['total'],
             $this->albumFactory->manyFromArray($response['items'])
         );
@@ -159,8 +157,6 @@ class SpotifyApi implements SpotifyApiInterface
         );
 
         return new AlbumPaginationDto(
-            $response['albums']['limit'],
-            $response['albums']['offset'],
             $response['albums']['total'],
             $this->albumFactory->manyFromArray($response['albums']['items'])
         );
