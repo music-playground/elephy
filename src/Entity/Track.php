@@ -17,7 +17,9 @@ class Track
         private readonly int $trackNumber,
         private readonly string $type,
         private readonly string $uri,
-        private readonly bool $isLocal
+        private readonly bool $isLocal,
+        /** @var SimpleArtist[] */
+        private readonly array $simpleArtists
     ) {}
 
     public function getAvailableMarkets(): ?array
@@ -78,5 +80,10 @@ class Track
     public function isLocal(): bool
     {
         return $this->isLocal;
+    }
+
+    public function getSimpleArtists(): array
+    {
+        return $this->simpleArtists;
     }
 }

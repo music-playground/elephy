@@ -6,6 +6,11 @@ use MusicPlayground\Elephy\Entity\Track;
 
 class TrackFactory
 {
+    public function __construct(
+        private SimpleArtistFactory $simpleArtistFactory = new SimpleArtistFactory()
+    ) {
+    }
+
     public function fromArray(array $params): Track
     {
         return new Track(
@@ -20,7 +25,8 @@ class TrackFactory
             $params['track_number'],
             $params['type'],
             $params['uri'],
-            $params['is_local']
+            $params['is_local'],
+            array_map(fn ($artist) => $this->simpleArtistFactory->fromArray($artist), $params['artists'])
         );
     }
 
