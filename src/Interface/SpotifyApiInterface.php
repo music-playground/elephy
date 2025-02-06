@@ -27,8 +27,9 @@ interface SpotifyApiInterface
     public function getSeveralAlbums(array $ids, ?string $market = null): array;
     /**
      * @throws HttpExceptionInterface
+     * @return Generator<TracksPaginationDto>
      */
-    public function getAlbumTracks(string $id, int $limit, int $offset, ?string $market = null): TracksPaginationDto;
+    public function getAlbumTracks(string $id, ?int $limit = null, int $offset = 0, ?string $market = null): Generator;
     /**
      * @throws HttpExceptionInterface
      */

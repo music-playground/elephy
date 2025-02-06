@@ -3,7 +3,6 @@
 namespace MusicPlayground\Elephy\Factory;
 
 use MusicPlayground\Elephy\Entity\Album;
-use MusicPlayground\Elephy\Entity\SimpleArtist;
 use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
 use MusicPlayground\Elephy\Loader\ArtistLoader;
 use MusicPlayground\Elephy\Loader\TrackLoader;

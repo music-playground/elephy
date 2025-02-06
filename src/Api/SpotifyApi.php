@@ -2,6 +2,7 @@
 
 namespace MusicPlayground\Elephy\Api;
 
+use Generator;
 use MusicPlayground\Elephy\Dto\AlbumPaginationDto;
 use MusicPlayground\Elephy\Dto\ChangePlaylistDetailsDto;
 use MusicPlayground\Elephy\Dto\TracksPaginationDto;
@@ -73,23 +74,28 @@ class SpotifyApi implements SpotifyApiInterface
         return $this->albumFactory->manyFromArray($response['albums'], $market);
     }
 
-    public function getAlbumTracks(string $id, int $limit, int $offset, ?string $market = null): TracksPaginationDto
+    public function getAlbumTracks(string $id, ?int $limit = null, int $offset = 0, ?string $market = null): Generator
     {
-        $result = json_decode(
-            $this->apiRequests->getGetRequest()
-                ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/albums/$id/tracks?" . $this->queryString
-                        ->createFromArray(['limit' => $limit, 'offset' => $offset, 'market' => $market])
-                )->send(),
-            true
-        );
+        do {
+            $result = json_decode(
+                $this->apiRequests->getGetRequest()
+                    ->withAccessToken($this->session->getAccessToken())
+                    ->withEndpoint("/albums/$id/tracks?" . $this->queryString
+                            ->createFromArray(['limit' => $limit, 'offset' => $offset, 'market' => $market])
+                    )->send(),
+                true
+            );
+            $count = count($result['items']);
 
-        return new TracksPaginationDto(
-            $result['limit'],
-            $result['offset'],
-            $result['total'],
-            $this->trackFactory->manyFromArray($result['items'])
-        );
+            if ($count === 0) break;
+
+            $offset += $count;
+
+            yield new TracksPaginationDto(
+                $result['total'],
+                $this->trackFactory->manyFromArray($result['items'])
+            );
+        } while (true);
     }
 
     public function getSavedAlbums(int $limit, int $offset, ?string $market = null): AlbumPaginationDto
@@ -192,7 +198,7 @@ class SpotifyApi implements SpotifyApiInterface
     /**
      * @throws HttpException
      */
-    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null, ?array $includeGroups = null): \Generator
+    public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null, ?array $includeGroups = null): Generator
     {
         do {
             $response = json_decode(
