@@ -12,6 +12,7 @@ use MusicPlayground\Elephy\Entity\Audiobook;
 use MusicPlayground\Elephy\Entity\PlaybackState;
 use MusicPlayground\Elephy\Entity\Playlist;
 use MusicPlayground\Elephy\Entity\Track;
+use MusicPlayground\Elephy\Exception\HttpException;
 
 interface SpotifyApiInterface
 {
@@ -61,37 +62,56 @@ interface SpotifyApiInterface
     public function getArtist(string $id): Artist;
 
     /**
+     * @throws HttpExceptionInterface
      * @param string[] $ids
      * @return Artist[]
      */
     public function getSeveralArtists(array $ids): array;
     /**
+     * @throws HttpExceptionInterface
      * @return Generator<AlbumPaginationDto>
      */
     public function getArtistsAlbums(string $id, ?int $limit = null, ?int $offset = null, ?array $includeGroups = null): Generator;
     /**
+     * @throws HttpExceptionInterface
      * @return Track[]
      */
     public function getArtistsTopTracks(string $id): array;
     /**
+     * @throws HttpExceptionInterface
      * @return Artist[]
      */
     public function getArtistsRelatedArtist(string $id): array;
     public function getAudiobook(string $id): Audiobook;
     /**
+     * @throws HttpExceptionInterface
      * @return Audiobook[]
      */
     public function getSeveralAudiobooks(array $ids, ?string $market = null): array;
 
     /**
+     * @throws HttpExceptionInterface
      * @return string[]
      */
     public function getAvailableGenreSeeds(): array;
     /**
+     * @throws HttpExceptionInterface
      * @return string[]
      */
     public function getAvailableMarkets(?array $markets = null): array;
+
+    /**
+     * @throws HttpExceptionInterface
+     */
     public function getPlaybackState(?string $market = null): PlaybackState;
+
+    /**
+     * @throws HttpExceptionInterface
+     */
     public function getPlaylist(string $id, ?string $market = null): Playlist;
+
+    /**
+     * @throws HttpExceptionInterface
+     */
     public function changePlaylistDetails(string $id, ?ChangePlaylistDetailsDto $body = null): void;
 }
