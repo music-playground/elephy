@@ -11,12 +11,14 @@ use MusicPlayground\Elephy\Entity\Artist;
 use MusicPlayground\Elephy\Entity\Audiobook;
 use MusicPlayground\Elephy\Entity\PlaybackState;
 use MusicPlayground\Elephy\Entity\Playlist;
+use MusicPlayground\Elephy\Entity\TrackWithAlbum;
 use MusicPlayground\Elephy\Exception\HttpException;
 use MusicPlayground\Elephy\Factory\AlbumFactory;
 use MusicPlayground\Elephy\Factory\ArtistFactory;
 use MusicPlayground\Elephy\Factory\AudiobookFactory;
 use MusicPlayground\Elephy\Factory\PlaylistFactory;
 use MusicPlayground\Elephy\Factory\TrackFactory;
+use MusicPlayground\Elephy\Factory\TrackWithAlbumFactory;
 use MusicPlayground\Elephy\Interface\SessionInterface;
 use MusicPlayground\Elephy\Interface\SpotifyApiInterface;
 use MusicPlayground\Elephy\Util\QueryString;
@@ -29,6 +31,7 @@ class SpotifyApi implements SpotifyApiInterface
     private readonly ArtistFactory $artistFactory;
     private readonly AudiobookFactory $audiobookFactory;
     private readonly PlaylistFactory $playlistFactory;
+    private readonly TrackWithAlbumFactory $trackWithAlbumFactory;
 
     public function __construct(
         private readonly SessionInterface $session,
@@ -41,6 +44,7 @@ class SpotifyApi implements SpotifyApiInterface
         $this->apiRequests = new ApiRequests($apiUrl);
         $this->audiobookFactory = new AudiobookFactory();
         $this->playlistFactory = new PlaylistFactory();
+        $this->trackWithAlbumFactory = new TrackWithAlbumFactory();
     }
 
     public function getAlbum(string $id, ?string $market = null): Album
@@ -347,5 +351,22 @@ class SpotifyApi implements SpotifyApiInterface
             ->withEndpoint("/playlists/$id")
             ->addOptions([ CURLOPT_POSTFIELDS => json_encode($body?->toArray())])
             ->send();
+    }
+
+    /**
+     * @throws HttpException
+     */
+    public function getPlaylistItems(string $id): array
+    {
+        $response = json_decode(
+            $this->apiRequests->getGetRequest()
+                ->withAccessToken($this->session->getAccessToken())
+                ->withEndpoint("/playlists/$id/tracks")
+                ->send(),
+            true
+        );
+
+        return $this->trackWithAlbumFactory->manyFromArray(
+            array_map(fn (array $item) => $item['track'], $response['items']));
     }
 }

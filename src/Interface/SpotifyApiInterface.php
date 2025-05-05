@@ -12,7 +12,7 @@ use MusicPlayground\Elephy\Entity\Audiobook;
 use MusicPlayground\Elephy\Entity\PlaybackState;
 use MusicPlayground\Elephy\Entity\Playlist;
 use MusicPlayground\Elephy\Entity\Track;
-use MusicPlayground\Elephy\Exception\HttpException;
+use MusicPlayground\Elephy\Entity\TrackWithAlbum;
 
 interface SpotifyApiInterface
 {
@@ -114,4 +114,9 @@ interface SpotifyApiInterface
      * @throws HttpExceptionInterface
      */
     public function changePlaylistDetails(string $id, ?ChangePlaylistDetailsDto $body = null): void;
+
+    /**
+     * @return TrackWithAlbum[]
+     */
+    public function getPlaylistItems(string $id): array;
 }
