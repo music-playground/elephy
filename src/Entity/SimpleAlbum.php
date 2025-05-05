@@ -71,7 +71,7 @@ final readonly class SimpleAlbum
         return $this->uri;
     }
 
-    public function getArtists(): array
+    public function getSimpleArtist(): array
     {
         return $this->artists;
     }
