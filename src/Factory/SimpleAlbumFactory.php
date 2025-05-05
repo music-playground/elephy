@@ -14,8 +14,6 @@ final readonly class SimpleAlbumFactory
 
     public function fromArray(array $params): SimpleAlbum
     {
-        var_dump($params);
-        exit;
         return new SimpleAlbum(
             $params['album_type'],
             $params['total_tracks'],
