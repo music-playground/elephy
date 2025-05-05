@@ -116,7 +116,7 @@ interface SpotifyApiInterface
     public function changePlaylistDetails(string $id, ?ChangePlaylistDetailsDto $body = null): void;
 
     /**
-     * @return TrackWithAlbum[]
+     * @return Generator<TrackWithAlbum>
      */
-    public function getPlaylistItems(string $id): array;
+    public function getPlaylistItems(string $id, ?int $limit = null, ?int $offset = null, ?string $additionalTypes = null): Generator;
 }

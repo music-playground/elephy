@@ -356,17 +356,29 @@ class SpotifyApi implements SpotifyApiInterface
     /**
      * @throws HttpException
      */
-    public function getPlaylistItems(string $id): array
+    public function getPlaylistItems(string $id, ?int $limit = null, ?int $offset = null, ?string $additionalTypes = null): Generator
     {
-        $response = json_decode(
-            $this->apiRequests->getGetRequest()
-                ->withAccessToken($this->session->getAccessToken())
-                ->withEndpoint("/playlists/$id/tracks")
-                ->send(),
-            true
-        );
+        do {
+            $response = json_decode(
+                $this->apiRequests->getGetRequest()
+                    ->withAccessToken($this->session->getAccessToken())
+                    ->withEndpoint("/playlists/$id/tracks?" . $this->queryString->createFromArray([
+                            'limit' => $limit,
+                            'offset' => $offset,
+                            'additional_types' => $additionalTypes
+                        ]))
+                    ->send(),
+                true
+            );
 
-        return $this->trackWithAlbumFactory->manyFromArray(
-            array_map(fn (array $item) => $item['track'], $response['items']));
+            $count = count($response['items']);
+
+            if ($count === 0) break;
+
+            $offset += $count;
+
+            yield from $this->trackWithAlbumFactory->manyFromArray(
+                array_map(fn(array $item) => $item['track'], $response['items']));
+        } while (true);
     }
 }
