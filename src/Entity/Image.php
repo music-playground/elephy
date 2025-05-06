@@ -6,8 +6,8 @@ class Image
 {
     public function __construct(
         private readonly string $url,
-        private readonly int $width,
-        private readonly int $height
+        private readonly ?int $width,
+        private readonly ?int $height
     ) {}
 
     public function getUrl(): string
@@ -15,12 +15,12 @@ class Image
         return $this->url;
     }
 
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
 
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
